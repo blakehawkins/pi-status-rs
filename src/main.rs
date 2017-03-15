@@ -1,4 +1,15 @@
 extern crate slack;
+#[macro_use]
+extern crate serde_derive;
+extern crate toml;
+
+use std::fs::File;
+
+#[derive(Deserialize)]
+struct Config {
+    slack_key: String,
+}
+
 struct SlackHandler;
 
 #[allow(unused_variables)]
@@ -28,7 +39,13 @@ impl slack::EventHandler for SlackHandler {
 }
 
 fn main() {
-    let api_key = "xoxp-99574921762-99564265797-146724218293-6e27b1a8e8dad22840a8fc83bfd2903e";
+    // Get the slack API key.
+    let f = try!(File::open("config.toml"))
+    let mut s = String::new();
+    try!(f.read_to_string(&mut s));
+    let conf: Config = toml::from_str(s).unwrap();
+    let api_key = conf.slack_key;
+
     let mut handler = SlackHandler;
     let mut client = slack::RtmClient::new(&api_key);
     let _ = client.login_and_run::<SlackHandler>(&mut handler).unwrap();

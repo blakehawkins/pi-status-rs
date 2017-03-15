@@ -6,3 +6,5 @@ authors = ["Blake"]
 [dependencies]
 slack = "0.16.0"
 gip   = "*"
+serde = "0.9.11"
+toml  = "0.3"

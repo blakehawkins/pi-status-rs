@@ -1,0 +1,8 @@
+[package]
+name = "pi-status-rs"
+version = "0.1.0"
+authors = ["Blake"]
+
+[dependencies]
+slack = "0.16.0"
+gip   = "*"

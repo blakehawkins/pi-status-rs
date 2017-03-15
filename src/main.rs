@@ -41,10 +41,16 @@ impl slack::EventHandler for SlackHandler {
 
 fn main() {
     // Get the slack API key.
-    let mut f = File::open("config.toml").unwrap();
+    let mut f = match File::open("config.toml") {
+        Ok(val) => val,
+        _ => panic!("Couldn't find config.toml!"),
+    };
     let mut s = String::new();
     let _ = f.read_to_string(&mut s);
-    let conf: Config = toml::from_str(&s).unwrap();
+    let conf: Config = match toml::from_str(&s) {
+        Ok(val) => val,
+        _ => panic!("Couldn't deserialise config.toml!"),
+    };
     let api_key = conf.slack_key;
 
     let mut handler = SlackHandler;

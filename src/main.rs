@@ -4,6 +4,7 @@ extern crate serde_derive;
 extern crate toml;
 
 use std::fs::File;
+use std::io::Read;
 
 #[derive(Deserialize)]
 struct Config {
@@ -40,10 +41,10 @@ impl slack::EventHandler for SlackHandler {
 
 fn main() {
     // Get the slack API key.
-    let f = try!(File::open("config.toml"))
+    let mut f = File::open("config.toml").unwrap();
     let mut s = String::new();
-    try!(f.read_to_string(&mut s));
-    let conf: Config = toml::from_str(s).unwrap();
+    let _ = f.read_to_string(&mut s);
+    let conf: Config = toml::from_str(&s).unwrap();
     let api_key = conf.slack_key;
 
     let mut handler = SlackHandler;

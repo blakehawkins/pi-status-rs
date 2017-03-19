@@ -31,11 +31,11 @@ impl slack::EventHandler for SlackHandler {
         println!("on_connect");
         // Do a few things using the api:
         // send a message over the real time api websocket
-        let _ = cli.send_message("#random", "Hello world! (rtm)");
+        let _ = cli.send_message("#pi-status", ".");
         // post a message as a user to the web api
-        let _ = cli.post_message("#random", "hello world! (postMessage)", None);
+        // let _ = cli.post_message("#pi-status", "hello world! (postMessage)", None);
         // set a channel topic via the web api
-        // let _ = cli.set_topic("#random", "bots rule!");
+        // let _ = cli.set_topic("#pi-status", "bots rule!");
     }
 }
 

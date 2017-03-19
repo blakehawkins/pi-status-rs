@@ -8,3 +8,6 @@ slack = "0.16.0"
 serde = "0.9.11"
 serde_derive = "0.9.11"
 toml  = "0.3"
+
+[replace]
+"openssl-sys:0.7.17" = { path = "../rust-openssl/openssl-sys" }
